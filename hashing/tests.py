@@ -5,6 +5,7 @@
 from selenium import webdriver
 from django.test import TestCase
 from .forms import HashForm
+import hashlib
 
 #? browser = webdriver.Firefox()
 
@@ -59,4 +60,15 @@ class UnitTestCase(TestCase):
         form = HashForm(data={'text': 'hello'})
         # Check if it is valid
         self.assertTrue(form.is_valid())
+
+    def test_hash_func_works(self):
+        # Need to import haslib library to generate hash
+        text_hash = hashlib.sha256('hello'.encode('utf-8')).hexdigest()
+        # hash.hexdigest() Like digest() except the digest is returned as a string object of double length, containing only hexadecimal digits. This may be used to exchange the value safely in email or other non-binary environments.
+        # Info about hashlib: https://docs.python.org/3/library/hashlib.html
+        # Check our result equals to the true one
+        # Go to any of the website to generate hash
+        self.assertEqual('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824', text_hash)
+        # No need to write extra code for that, because it checks the library of hashlib only.
+
 
