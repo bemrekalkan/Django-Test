@@ -47,7 +47,6 @@ from .forms import HashForm
 
 class UnitTestCase(TestCase):
 
-
     def test_home_homepage_tempalte(self):
         response = self.client.get('/')
         #? The client 👆 is testing on scripts, not on the browser
@@ -56,7 +55,7 @@ class UnitTestCase(TestCase):
     # There should be a form the user enters a text to
     # find corresponding hash
     def test_hash_form(self):
-        # Check if there is a form, needs to filled with some data, for not to be an empty form which basically equals to False
+        #! Check if there is a form, needs to filled with some data, for not to be an empty form which basically equals to False
         form = HashForm(data={'text': 'hello'})
         # Check if it is valid
         self.assertTrue(form.is_valid())
