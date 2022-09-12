@@ -1,13 +1,18 @@
+
+#! functional test 👉 frontend test
+#! unit test 👉 backend test
+
 from selenium import webdriver
 from django.test import TestCase
+from .forms import HashForm
 
 #? browser = webdriver.Firefox()
 
-browser = webdriver.Chrome()
-browser.get('http://localhost:8000')
+# browser = webdriver.Chrome()
+# browser.get('http://localhost:8000')
 
 
-class FunctionalTestCase(TestCase):
+""" class FunctionalTestCase(TestCase):
     # Before the test run
     # We want the browser become ready
     # The setUp is part of initialization, this method will get called before every test function which you are going to write in this test case class. Here you are creating the instance of Firefox WebDriver.
@@ -35,9 +40,24 @@ class FunctionalTestCase(TestCase):
         # Result must be the correct walue
         self.assertInHTML('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824', self.browser.page_source)
 
-
-
     # After the test run
     # The tearDown method will get called after every test method. This is a place to do all cleanup actions. In the current method, the browser window is closed. You can also call quit method instead of close. The quit will exit the entire browser, whereas close will close a tab, but if it is the only tab opened, by default most browser will exit entirely.
     def tearDown(self):
-        self.browser.quit()
+        self.browser.quit() """
+
+class UnitTestCase(TestCase):
+
+
+    def test_home_homepage_tempalte(self):
+        response = self.client.get('/')
+        #? The client 👆 is testing on scripts, not on the browser
+        self.assertTemplateUsed(response, 'hashing/home.html')
+
+    # There should be a form the user enters a text to
+    # find corresponding hash
+    def test_hash_form(self):
+        # Check if there is a form, needs to filled with some data, for not to be an empty form which basically equals to False
+        form = HashForm(data={'text': 'hello'})
+        # Check if it is valid
+        self.assertTrue(form.is_valid())
+
