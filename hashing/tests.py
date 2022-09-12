@@ -20,7 +20,22 @@ class FunctionalTestCase(TestCase):
     # This is the test case method. The test case method should always start with characters test.
     def test_there_is_homepage(self):
         self.browser.get('http://localhost:8000')
-        self.assertIn('Enter Hash Here',self.browser.page_source)
+        self.assertIn('Enter hash here',self.browser.page_source)
+        #! Is this text 👆 available in browser?
+
+    def test_hash_of_hello(self):
+        self.browser.get('http://localhost:8000')
+        # Find the element with id "text"
+        text = self.browser.find_element_by_id("id_text")
+        # Simulate user types "hello"
+        # send_keys method is used to send text to any field, such as input field of a form or even to anchor tag paragraph, etc. It replaces its contents on the webpage in your browser.
+        text.send_keys("hello")
+        # Simulate click to the submit button
+        self.browser.find_element_by_name("submit").click()
+        # Result must be the correct walue
+        self.assertInHTML('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824', self.browser.page_source)
+
+
 
     # After the test run
     # The tearDown method will get called after every test method. This is a place to do all cleanup actions. In the current method, the browser window is closed. You can also call quit method instead of close. The quit will exit the entire browser, whereas close will close a tab, but if it is the only tab opened, by default most browser will exit entirely.
