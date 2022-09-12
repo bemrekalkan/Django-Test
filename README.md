@@ -1,5 +1,4 @@
-# Django Class Notes
-Django Testing
+# Django Testing
 
 ### Nice to have VSCode Extentions:
 - Djaneiro - Django Snippets  (Be carefull about other conflicting extentions!)
